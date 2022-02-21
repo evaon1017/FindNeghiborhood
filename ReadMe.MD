@@ -1,9 +1,8 @@
 # 頁面說明
 
 這是給MetaCityM LandLord 使用的小工具
-### 給想要找鄰居的人一個管道
-### 給想要看地圖的人，在官方釋出地圖之前有個大概的樣貌
-[![登記找鄰居](https://circleci.com/gh/18F/18f.gsa.gov.svg?style=shield)](https://findneghiborhood.dev.raydream.com.tw/)
+### 給想要找鄰居的人一個管道 [(點我)](https://findneghiborhood.dev.raydream.com.tw/)
+### 給想要看地圖的人，在官方釋出地圖之前有個大概的樣貌 [(點我)](https://findneghiborhood.dev.raydream.com.tw/Map.aspx)
 
 # 使用須知
 1. 你要先有塊地(這代表你知道怎麼切到Polygon網路)

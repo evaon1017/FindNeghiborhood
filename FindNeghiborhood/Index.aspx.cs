@@ -36,48 +36,6 @@ namespace FindNeghiborhood
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "autoConnect", "setTimeout(() => $('#start-connect').click(), 100)", true);
                 }
             }
-
-            //var dt = DS.Tables[0];
-
-            //using (var cli = new WebClient())
-            //{
-            //    dt.AsEnumerable().Select(r => new { Row = r, TokenId = Convert.ToInt32(r.Field<string>("TokenId")) }).Select(_item =>
-            //    {
-            //        var item = _item;
-            //        var text = cli.DownloadString($"https://metacitym.gamamobi.com/mcm/api/land?token={item.TokenId}");
-            //        var metaObject = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(text, new
-            //        {
-            //            attributes = new[]
-            //            {
-            //                    new
-            //                    {
-            //                        trait_type = string.Empty,
-            //                        value = string.Empty
-            //                    }
-            //                }
-            //        });
-
-            //        var traitDict = metaObject.attributes.ToDictionary(set => set.trait_type, set => set.value);
-
-            //        var row = dt.Rows.Find(item.TokenId);
-            //        if (row == null)
-            //        {
-            //            row = dt.Rows.Add(item.TokenId);
-            //        }
-
-            //        row.SetField("City", traitDict.TryGetValue("city", out string city) ? city : null);
-            //        row.SetField("Town", traitDict.TryGetValue("town", out string town) ? town : null);
-            //        row.SetField("X", traitDict.TryGetValue("land_posx", out string land_posx) ? land_posx : null);
-            //        row.SetField("Y", traitDict.TryGetValue("land_posy", out string land_posy) ? land_posy : null);
-            //        return true;
-            //    })
-            //    .ToArray();
-            //}
-
-            //lock (Save)
-            //{
-            //    Save = Save.ContinueWith(t => dt.WriteXml(XmlPath));
-            //}
         }
 
         protected override void OnPreRender(EventArgs e)
@@ -169,6 +127,64 @@ namespace FindNeghiborhood
             this.UP.Update();
 
             Response.Cookies.Add(new HttpCookie("Connected", "1") { Expires = DateTime.Now.AddDays(1) });
+        }
+
+        protected void UI_btnScanAll_Click(object sender, EventArgs e)
+        {
+            var dt = DS.Tables[0];
+
+            var counter = 0;
+            using (var cli = new WebClient())
+            {
+                for (int tokenId = 1; tokenId <= 5000; tokenId++)
+                {
+                    var row = dt.Rows.Find(tokenId);
+
+                    if (row != null)
+                    {
+                        continue;
+                    }
+
+                    var text = cli.DownloadString($"https://metacitym.gamamobi.com/mcm/api/land?token={tokenId}");
+                    var metaObject = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(text, new
+                    {
+                        attributes = new[]
+                        {
+                            new
+                            {
+                                trait_type = string.Empty,
+                                value = string.Empty
+                            }
+                        }
+                    });
+
+                    var traitDict = metaObject.attributes.ToDictionary(set => set.trait_type, set => set.value);
+
+                    if (row == null)
+                    {
+                        row = dt.Rows.Add(tokenId);
+                    }
+
+                    row.SetField("City", traitDict.TryGetValue("city", out string city) ? city : null);
+                    row.SetField("Town", traitDict.TryGetValue("town", out string town) ? town : null);
+                    row.SetField("X", traitDict.TryGetValue("land_posx", out string land_posx) ? land_posx : null);
+                    row.SetField("Y", traitDict.TryGetValue("land_posy", out string land_posy) ? land_posy : null);
+
+                    System.Threading.Thread.Sleep(500);
+                    System.Diagnostics.Debug.WriteLine($"id: {tokenId}, updated ({row["X"]}, {row["Y"]})");
+
+                    counter++;
+                    if (counter > 10)
+                    {
+                        counter = 0;
+                        Save = Save.ContinueWith(t => dt.WriteXml(XmlPath));
+                    }
+                }
+            }
+
+            Save = Save.ContinueWith(t => dt.WriteXml(XmlPath));
+
+            UI_btnReload_Click(null, null);
         }
     }
 }

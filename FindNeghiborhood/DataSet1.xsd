@@ -12,7 +12,7 @@
   <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Main" msprop:Generator_TableClassName="MainDataTable" msprop:Generator_TableVarName="tableMain" msprop:Generator_TablePropName="Main" msprop:Generator_RowDeletingName="MainRowDeleting" msprop:Generator_RowChangingName="MainRowChanging" msprop:Generator_RowEvHandlerName="MainRowChangeEventHandler" msprop:Generator_RowDeletedName="MainRowDeleted" msprop:Generator_UserTableName="Main" msprop:Generator_RowChangedName="MainRowChanged" msprop:Generator_RowEvArgName="MainRowChangeEvent" msprop:Generator_RowClassName="MainRow">
+        <xs:element name="Main" msprop:Generator_TableClassName="MainDataTable" msprop:Generator_TableVarName="tableMain" msprop:Generator_RowChangedName="MainRowChanged" msprop:Generator_TablePropName="Main" msprop:Generator_RowDeletingName="MainRowDeleting" msprop:Generator_RowChangingName="MainRowChanging" msprop:Generator_RowEvHandlerName="MainRowChangeEventHandler" msprop:Generator_RowDeletedName="MainRowDeleted" msprop:Generator_RowClassName="MainRow" msprop:Generator_UserTableName="Main" msprop:Generator_RowEvArgName="MainRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TokenID" msprop:Generator_ColumnVarNameInTable="columnTokenID" msprop:Generator_ColumnPropNameInRow="TokenID" msprop:Generator_ColumnPropNameInTable="TokenIDColumn" msprop:Generator_UserColumnName="TokenID" type="xs:string" />
@@ -22,6 +22,9 @@
               <xs:element name="Y" msprop:Generator_ColumnVarNameInTable="columnY" msprop:Generator_ColumnPropNameInRow="Y" msprop:Generator_ColumnPropNameInTable="YColumn" msprop:Generator_UserColumnName="Y" type="xs:string" minOccurs="0" />
               <xs:element name="Discord" msprop:Generator_ColumnVarNameInTable="columnDiscord" msprop:Generator_ColumnPropNameInRow="Discord" msprop:Generator_ColumnPropNameInTable="DiscordColumn" msprop:Generator_UserColumnName="Discord" type="xs:string" minOccurs="0" />
               <xs:element name="Owner" msprop:Generator_ColumnVarNameInTable="columnOwner" msprop:Generator_ColumnPropNameInRow="Owner" msprop:Generator_ColumnPropNameInTable="OwnerColumn" msprop:Generator_UserColumnName="Owner" type="xs:string" minOccurs="0" />
+              <xs:element name="numX" msdata:ReadOnly="true" msdata:Expression="Convert(X,'System.Int16')" msprop:Generator_ColumnVarNameInTable="columnnumX" msprop:Generator_ColumnPropNameInRow="numX" msprop:Generator_ColumnPropNameInTable="numXColumn" msprop:Generator_UserColumnName="numX" type="xs:short" minOccurs="0" />
+              <xs:element name="numY" msdata:ReadOnly="true" msdata:Expression="Convert(Y,'System.Int16')" msprop:Generator_ColumnVarNameInTable="columnnumY" msprop:Generator_ColumnPropNameInRow="numY" msprop:Generator_ColumnPropNameInTable="numYColumn" msprop:Generator_UserColumnName="numY" type="xs:short" minOccurs="0" />
+              <xs:element name="numId" msdata:ReadOnly="true" msdata:Expression="Convert(TokenId,'System.Int32')" msprop:Generator_ColumnVarNameInTable="columnnumId" msprop:Generator_ColumnPropNameInRow="numId" msprop:Generator_ColumnPropNameInTable="numIdColumn" msprop:Generator_UserColumnName="numId" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

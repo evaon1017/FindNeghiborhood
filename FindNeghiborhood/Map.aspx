@@ -13,12 +13,16 @@
         }
 
         td {
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             text-align: center;
             word-wrap:break-word;
             font-size:x-small;
             overflow:hidden;    
+        }
+
+        td.hasOwner {
+            background-color: orange;
         }
 
         .canvas {
@@ -73,7 +77,7 @@
         });
 
         $('table.draggable').each(function (idx, el) {
-            $(el).css('width', ($(el).find('tr').first().find('td').length * 70).toString() + 'px');
+            $(el).css('width', ($(el).find('tr').first().find('td').length * 50).toString() + 'px');
         });
     </script>
 </body>

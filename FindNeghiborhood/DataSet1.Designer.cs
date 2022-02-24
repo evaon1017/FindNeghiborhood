@@ -37,6 +37,7 @@ namespace FindNeghiborhood {
             base.Tables.CollectionChanged += schemaChangedHandler;
             base.Relations.CollectionChanged += schemaChangedHandler;
             this.EndInit();
+            this.InitExpressions();
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -48,6 +49,9 @@ namespace FindNeghiborhood {
                 global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler1 = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
                 this.Tables.CollectionChanged += schemaChangedHandler1;
                 this.Relations.CollectionChanged += schemaChangedHandler1;
+                if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.ExcludeSchema)) {
+                    this.InitExpressions();
+                }
                 return;
             }
             string strSchema = ((string)(info.GetValue("XmlSchema", typeof(string))));
@@ -68,6 +72,7 @@ namespace FindNeghiborhood {
             }
             else {
                 this.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
+                this.InitExpressions();
             }
             this.GetSerializationData(info, context);
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -129,6 +134,7 @@ namespace FindNeghiborhood {
         public override global::System.Data.DataSet Clone() {
             DataSet1 cln = ((DataSet1)(base.Clone()));
             cln.InitVars();
+            cln.InitExpressions();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
         }
@@ -204,7 +210,7 @@ namespace FindNeghiborhood {
             this.Namespace = "http://tempuri.org/DataSet1.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableMain = new MainDataTable();
+            this.tableMain = new MainDataTable(false);
             base.Tables.Add(this.tableMain);
         }
         
@@ -269,6 +275,14 @@ namespace FindNeghiborhood {
             return type;
         }
         
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+        private void InitExpressions() {
+            this.Main.numXColumn.Expression = "Convert(X,\'System.Int16\')";
+            this.Main.numYColumn.Expression = "Convert(Y,\'System.Int16\')";
+            this.Main.numIdColumn.Expression = "Convert(TokenId,\'System.Int32\')";
+        }
+        
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void MainRowChangeEventHandler(object sender, MainRowChangeEvent e);
         
@@ -293,12 +307,27 @@ namespace FindNeghiborhood {
             
             private global::System.Data.DataColumn columnOwner;
             
+            private global::System.Data.DataColumn columnnumX;
+            
+            private global::System.Data.DataColumn columnnumY;
+            
+            private global::System.Data.DataColumn columnnumId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MainDataTable() {
+            public MainDataTable() : 
+                    this(false) {
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MainDataTable(bool initExpressions) {
                 this.TableName = "Main";
                 this.BeginInit();
                 this.InitClass();
+                if ((initExpressions == true)) {
+                    this.InitExpressions();
+                }
                 this.EndInit();
             }
             
@@ -384,6 +413,30 @@ namespace FindNeghiborhood {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn numXColumn {
+                get {
+                    return this.columnnumX;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn numYColumn {
+                get {
+                    return this.columnnumY;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn numIdColumn {
+                get {
+                    return this.columnnumId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -419,6 +472,26 @@ namespace FindNeghiborhood {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public MainRow AddMainRow(string TokenID, string City, string Town, string X, string Y, string Discord, string Owner, short numX, short numY, int numId) {
+                MainRow rowMainRow = ((MainRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        TokenID,
+                        City,
+                        Town,
+                        X,
+                        Y,
+                        Discord,
+                        Owner,
+                        numX,
+                        numY,
+                        numId};
+                rowMainRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowMainRow);
+                return rowMainRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MainRow AddMainRow(string TokenID, string City, string Town, string X, string Y, string Discord, string Owner) {
                 MainRow rowMainRow = ((MainRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
@@ -428,7 +501,10 @@ namespace FindNeghiborhood {
                         X,
                         Y,
                         Discord,
-                        Owner};
+                        Owner,
+                        null,
+                        null,
+                        null};
                 rowMainRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMainRow);
                 return rowMainRow;
@@ -465,6 +541,9 @@ namespace FindNeghiborhood {
                 this.columnY = base.Columns["Y"];
                 this.columnDiscord = base.Columns["Discord"];
                 this.columnOwner = base.Columns["Owner"];
+                this.columnnumX = base.Columns["numX"];
+                this.columnnumY = base.Columns["numY"];
+                this.columnnumId = base.Columns["numId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -484,10 +563,19 @@ namespace FindNeghiborhood {
                 base.Columns.Add(this.columnDiscord);
                 this.columnOwner = new global::System.Data.DataColumn("Owner", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOwner);
+                this.columnnumX = new global::System.Data.DataColumn("numX", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnumX);
+                this.columnnumY = new global::System.Data.DataColumn("numY", typeof(short), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnumY);
+                this.columnnumId = new global::System.Data.DataColumn("numId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnumId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTokenID}, true));
                 this.columnTokenID.AllowDBNull = false;
                 this.columnTokenID.Unique = true;
+                this.columnnumX.ReadOnly = true;
+                this.columnnumY.ReadOnly = true;
+                this.columnnumId.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -506,6 +594,14 @@ namespace FindNeghiborhood {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
                 return typeof(MainRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            private void InitExpressions() {
+                this.numXColumn.Expression = "Convert(X,\'System.Int16\')";
+                this.numYColumn.Expression = "Convert(Y,\'System.Int16\')";
+                this.numIdColumn.Expression = "Convert(TokenId,\'System.Int32\')";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -737,6 +833,54 @@ namespace FindNeghiborhood {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public short numX {
+                get {
+                    try {
+                        return ((short)(this[this.tableMain.numXColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Main\' 中資料行 \'numX\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableMain.numXColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public short numY {
+                get {
+                    try {
+                        return ((short)(this[this.tableMain.numYColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Main\' 中資料行 \'numY\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableMain.numYColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public int numId {
+                get {
+                    try {
+                        return ((int)(this[this.tableMain.numIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("資料表 \'Main\' 中資料行 \'numId\' 的值是 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tableMain.numIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsCityNull() {
                 return this.IsNull(this.tableMain.CityColumn);
             }
@@ -805,6 +949,42 @@ namespace FindNeghiborhood {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetOwnerNull() {
                 this[this.tableMain.OwnerColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsnumXNull() {
+                return this.IsNull(this.tableMain.numXColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetnumXNull() {
+                this[this.tableMain.numXColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsnumYNull() {
+                return this.IsNull(this.tableMain.numYColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetnumYNull() {
+                this[this.tableMain.numYColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsnumIdNull() {
+                return this.IsNull(this.tableMain.numIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetnumIdNull() {
+                this[this.tableMain.numIdColumn] = global::System.Convert.DBNull;
             }
         }
         

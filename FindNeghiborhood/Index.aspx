@@ -31,6 +31,7 @@
         </asp:UpdatePanel>
         <span id="msg"></span>
         <div id="wallet-div" style="display:none"><span id="start-connect">我的錢包(點我):</span><span id="my-wallet"></span></div>
+        <asp:Button runat="server" ID="UI_btnScanAll" OnClick="UI_btnScanAll_Click" Visible="false" />
         <br />
         <div class="land-share" style="display: none">
             <h3>登記找鄰居(請手動填入地產的token id，還有希望別人如何聯繫你的discord)</h3>
